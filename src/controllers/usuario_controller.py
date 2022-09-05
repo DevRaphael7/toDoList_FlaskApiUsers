@@ -25,6 +25,21 @@ class createNewUser(Resource):
         if not request_body:
             return { "message": "Body request is required" }, 400
 
-        new_user = Usuario(request_body["name"], request_body["age"], (users[-1].id + 1))
+        new_user = Usuario(request_body["name"], request_body["age"], (users[-1].id + 1) if users else 1)
         users.append(new_user)
         return { "message": f"User {request_body['name']} created with success!" }
+    
+class deleteUser(Resource):
+
+    def delete(self):
+        global users
+
+        request_body = request.get_json()
+        
+        checkFound = [user for user in users if user.id == request_body["id"]]
+
+        if checkFound:
+            users = [user for user in users if user.id != request_body["id"]]
+            return { "message": "user deleted with success!" }
+        else:
+            return { "message": "User not found" }, 404
