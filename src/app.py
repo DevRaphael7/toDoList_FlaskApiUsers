@@ -9,5 +9,7 @@ api.add_resource(UsuarioController.getSigleUser, '/user/<int:_id>')
 api.add_resource(UsuarioController.getListUsers, '/users')
 api.add_resource(UsuarioController.createNewUser, '/user')
 api.add_resource(UsuarioController.deleteUser, '/user')
+api.add_resource(UsuarioController.Update, '/user')
 
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True, port=8002)
